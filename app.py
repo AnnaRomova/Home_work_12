@@ -1,30 +1,25 @@
+import logging
+
 from flask import Flask, request, render_template, send_from_directory
+
+from loader.views import loader_blueprint
+from main.views import main_blueprint
 # from functions import ...
 
-POST_PATH = "posts.json"
+POST_PATH = 'C:\\Users\\anna1\\skypro_lessons\\lessons_12\\lesson12_project_source_v3\\posts.json'
 UPLOAD_FOLDER = "uploads/images"
 
 app = Flask(__name__)
 
+app.config['JSON_AS_ASCII'] = False
+app.config["POST_PATH"] = POST_PATH
 
-@app.route("/")
-def page_index():
-    pass
+app.register_blueprint(main_blueprint)
+app.register_blueprint(loader_blueprint)
 
-
-@app.route("/list")
-def page_tag():
-    pass
+logging.basicConfig(filename="basic.log", level=logging.INFO, encoding="utf-8")
 
 
-@app.route("/post", methods=["GET", "POST"])
-def page_post_form():
-    pass
-
-
-@app.route("/post", methods=["POST"])
-def page_post_upload():
-    pass
 
 
 @app.route("/uploads/<path:path>")
